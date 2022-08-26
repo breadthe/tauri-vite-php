@@ -1,14 +1,19 @@
 <script lang="ts">
   import { invoke } from "@tauri-apps/api/tauri";
 
+  interface PhpResponse {
+    error: string;
+    message: string;
+  }
+
   let textInput: HTMLInputElement;
-  let rustResponse: string = "";
+  let rustResponse: PhpResponse;
 
   function sayHiToRust() {
     const message = textInput.value.trim();
     if (message) {
       invoke("say_hi", { message }).then(
-        (response) => (rustResponse = response)
+        (response) => (rustResponse = JSON.parse(response))
       );
     }
   }
@@ -20,7 +25,9 @@
 
   {#if rustResponse}
     <div>Rust response:</div>
-    <div>{rustResponse}</div>
+    <div>{JSON.stringify(rustResponse)}</div>
+        <div><strong>Status:</strong> {rustResponse.error ? "error" : "OK"}</div>
+        <div><strong>Message:</strong> {rustResponse.message}</div>
   {/if}
 </main>
 
