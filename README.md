@@ -25,3 +25,5 @@ cargo tauri dev
 # build prod
 cargo tauri build
 ```
+
+🚨 Note that the prod bundle doesn't work yet. The app launches ok but crashes when sending the command to PHP. I suspect it's an issue with the Tauri build config not recognizing `index.phar` as a dependency..
