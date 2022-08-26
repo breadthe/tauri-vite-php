@@ -11,8 +11,8 @@ fn main() {
 }
 
 #[tauri::command]
-fn say_hi(name: String) -> String {
-    println!("Hello {} from JS!🥳", name);
+fn say_hi(message: String) -> String {
+    println!("JS says: {}", message);
 
     let output = "Hi back from Rust".to_string();
 
